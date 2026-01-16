@@ -12,6 +12,10 @@ class DATEFORMAT:
 class Basic:
     TIMEOUT = 20
 
+class Env:
+    STAGE = "STAGE"
+    PROD = "PROD"
+
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
