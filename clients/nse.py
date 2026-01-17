@@ -21,6 +21,5 @@ class NSEClient(BaseHTTPClient):
             df = read_csv(StringIO(response.text))
             return df
         else:
-            print("STAGE")
-            df = read_csv(r'storage\output\bhavdata\sec_bhavdata_full_13012026.csv')
+            df = read_csv(self.link)
             return df
