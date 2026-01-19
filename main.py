@@ -1,12 +1,26 @@
 #%%
 from utilities.format import DateUtils
-from core.constants import DATEFORMAT, HEADERS, Env, NSE_LOCAL
+from core.constants import DATEFORMAT, Env, NSE_LOCAL
 from clients.nse import NSEClient
 from clients.base import BaseHTTPClient
 from core.calculations import Col
 import pandas as pd
 from core.operations import DataExporter, URL
 
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/csv,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Referer": "https://www.nseindia.com/",
+    "Connection": "keep-alive",
+    "DNT": "1",                       # Do Not Track (browser-like)
+    "Upgrade-Insecure-Requests": "1"
+}
 
 def main(ENV):
     # url = URL(DateUtils.format_date)     #### UNCOMMENT When deploying

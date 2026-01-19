@@ -1,6 +1,6 @@
 from typing import Literal
 from clients.base import BaseHTTPClient
-from core.constants import HEADERS, Basic, Env
+from core.constants import Basic, Env
 from io import StringIO
 from pandas import read_csv
 
