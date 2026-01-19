@@ -1,12 +1,11 @@
 #%%
-from schemas.models import URL
 from utilities.format import DateUtils
 from core.constants import DATEFORMAT, HEADERS, Env, NSE_LOCAL
 from clients.nse import NSEClient
 from clients.base import BaseHTTPClient
 from core.calculations import Col
 import pandas as pd
-from core.operations import DataExporter
+from core.operations import DataExporter, URL
 
 
 def main(ENV):

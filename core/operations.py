@@ -17,3 +17,18 @@ class DataExporter:
     def to_parquet(self):
         df = self.df
         df.to_parquet(OUTPUT.LOCATION + "/" + self.filename + FILEFORMAT.PARQUET, index = False)
+
+class URL:
+    def __init__(self, filedate: str):
+        self.filedate = filedate
+
+    @property
+    def generator(self) -> str:
+        URL = "https://" + NSE.DOMAIN + "/" + NSE.PATH + "/" + NSE.FILENAME + self.filedate + NSE.FILEFORMAT
+        return URL
+    
+    @property
+    def ticker(self) -> str:
+        URL = "https://" + NSE.DOMAIN + "/" + NSE.TICKER_PATH + "/" + NSE.TICKER_FILENAME + NSE.FILEFORMAT
+        return URL
+
