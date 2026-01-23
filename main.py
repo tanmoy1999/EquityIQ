@@ -1,11 +1,12 @@
 #%%
 from utilities.format import DateUtils
-from core.constants import DATEFORMAT, Env, NSE_LOCAL
-from clients.nse import NSEClient
+from core.constants import DATEFORMAT, Env, NSE_LOCAL, NSE
+from clients.nse import NSEClient, Report
 from clients.base import BaseHTTPClient
 from core.calculations import Col
 import pandas as pd
 from core.operations import DataExporter, URL
+from schemas.models import Ticker
 
 HEADERS = {
     "User-Agent": (
@@ -49,14 +50,23 @@ def main(ENV):
     df2 = df2[['SYMBOL',new_col]]
     print(df2)
 
-    DataExporter(df2, "ChangeCapture").to_csv()
+    filename = "ChangeCapture_" + DateUtils.format_date
+
+    lastReport =  Report(NSE_LOCAL.LOCATION + "/ChangeCapture" + NSE.FILEFORMAT).read
+
+    DataExporter(df2, filename).to_csv()
     DataExporter(df2, "ChangeCapture").to_json()
     DataExporter(df2, "ChangeCapture").to_parquet()
+    
+    result = df2.merge(
+        lastReport,
+        on="SYMBOL",
+        how="left"
+    )
+
+    DataExporter(result, "ChangeCapture").to_csv()
 
 if __name__ == "__main__":
-    ENV = Env.STAGE
-    # ENV = Env.PROD                      #### UNCOMMENT When deploying
+    # ENV = Env.STAGE
+    ENV = Env.PROD                      #### UNCOMMENT When deploying
     main(ENV)
-
-
-# %%

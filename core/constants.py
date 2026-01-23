@@ -17,6 +17,7 @@ class FILEFORMAT:
 class NSE_LOCAL(str, Enum):
     FILENAME = r"storage\output\bhavdata\sec_bhavdata_full_13012026.csv"
     TICKER = r"storage\ticker\EQUITY_L.csv"
+    LOCATION = 'storage/output/processed'
 
 class OUTPUT:
     LOCATION = r"storage\output\processed"
