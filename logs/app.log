@@ -16,3 +16,10 @@
 2026-01-27 01:58:05 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
 2026-01-27 01:58:05 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
 2026-01-27 01:58:07 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-01-27 02:01:02 | INFO     | __main__ | Running in PROD environment
+2026-01-27 02:01:02 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-01-27 02:01:02 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-01-27 02:01:05 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-01-27 02:01:07 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2229
+2026-01-27 02:01:07 | DEBUG    | __main__ | Reading last report.
+2026-01-27 02:01:07 | INFO     | __main__ | Final file merged and exported.

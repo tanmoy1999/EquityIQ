@@ -45,6 +45,7 @@ def main(ENV) -> None:
         BhavDataExporter(df,NSE.FILENAME + DateUtils.format_date).to_csv()
         logger.debug("Fetched & Exported bhavcopy rows: %d", len(df))
         ticker = conn_ticker.get_data()
+        logger.debug("Fetched & Exported Ticker sheet: %d", len(ticker))
     except Exception as e:
         logger.exception("Failed to fetch bhavcopy data from NSE")
         raise RuntimeError("Failed to fetch bhavcopy data from NSE") from e
