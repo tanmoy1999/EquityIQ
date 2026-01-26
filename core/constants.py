@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class NSE:
     DOMAIN = "nsearchives.nseindia.com"
     PATH = "products/content"
@@ -23,10 +22,6 @@ class NSE_LOCAL(str, Enum):
 class OUTPUT:
     PROCESSED_LOCATION = r"storage\output\processed"
     BHAVCOPY_LOCATION = 'storage/output/bhavdata'
-
-class ColName(str, Enum):
-    CLOSE_PRICE = "CLOSE_PRICE"
-    PREV_CLOSE = "PREV_CLOSE"
 
 
 class DATEFORMAT:
