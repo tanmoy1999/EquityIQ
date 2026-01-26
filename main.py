@@ -1,12 +1,14 @@
-#%%
 from utilities.format import DateUtils
-from core.constants import DATEFORMAT, Env, NSE_LOCAL, NSE
+from core.constants import DATEFORMAT, Env, NSE_LOCAL, NSE, FILEFORMAT, OUTPUT
 from clients.nse import NSEClient, Report
 from clients.base import BaseHTTPClient
 from core.calculations import Col
 import pandas as pd
-from core.operations import DataExporter, URL
-from schemas.models import Ticker
+from core.operations import ProcessedDataExporter,BhavDataExporter, URL, FileName
+from schemas.models import Ticker, BhavData
+from utilities.logging import get_logger
+
+logger = get_logger(__name__)
 
 HEADERS = {
     "User-Agent": (
@@ -23,48 +25,57 @@ HEADERS = {
     "Upgrade-Insecure-Requests": "1"
 }
 
-def main(ENV):
+def main(ENV) -> None:
     # url = URL(DateUtils.format_date)     #### UNCOMMENT When deploying
     url = URL(DATEFORMAT.DEFAULT)
 
     if ENV == Env.PROD:
-        print("PROD")
+        logger.info("Running in PROD environment")
+        logger.debug(f"URL: {url.generator}")
         conn = NSEClient(url.generator, HEADERS, ENV)
+        logger.debug(f"URL: {url.ticker}")
         conn_ticker = NSEClient(url.ticker, HEADERS, ENV)
     else:
-        print("STAGE")
+        logger.info("Running in STAGE environment")
         conn = NSEClient(NSE_LOCAL.FILENAME, HEADERS, ENV)
         conn_ticker = NSEClient(NSE_LOCAL.TICKER, HEADERS, ENV)
 
-    df = conn.get_data()
-    ticker = conn_ticker.get_data()
+    try:
+        df = conn.get_data()
+        BhavDataExporter(df,NSE.FILENAME + DateUtils.format_date).to_csv()
+        logger.debug("Fetched & Exported bhavcopy rows: %d", len(df))
+        ticker = conn_ticker.get_data()
+    except Exception as e:
+        logger.exception("Failed to fetch bhavcopy data from NSE")
+        raise RuntimeError("Failed to fetch bhavcopy data from NSE") from e
 
-    ticker = ticker[ticker[' SERIES'] == "EQ"]
-    ticker = ticker[['SYMBOL','NAME OF COMPANY']]
+    ticker = ticker[ticker[Ticker.SYMBOL] == NSE.EQUITY]
+    ticker = ticker[[Ticker.SYMBOL,Ticker.NAME_OF_COMPANY]]
     
-    df = df[df[' SERIES'] == " EQ"]
-    new_col = 'change_' + DateUtils.format_date
+    df_fil_eq = df[df[Ticker.SERIES] == NSE.EQUITY]
+    new_col = FileName.ChangeCol()
 
-    df1 = Col(df, new_col, ' PREV_CLOSE', ' CLOSE_PRICE')
-    df2 = df1.perc_diff()
-    df2 = df2[['SYMBOL',new_col]]
-    print(df2)
-
-    filename = "ChangeCapture_" + DateUtils.format_date
-
-    lastReport =  Report(NSE_LOCAL.LOCATION + "/ChangeCapture" + NSE.FILEFORMAT).read
-
-    DataExporter(df2, filename).to_csv()
-    DataExporter(df2, "ChangeCapture").to_json()
-    DataExporter(df2, "ChangeCapture").to_parquet()
+    df_close = Col(df_fil_eq, new_col, BhavData.PREV_CLOSE, BhavData.CLOSE_PRICE)
+    df_cc = df_close.perc_diff()
+    df_cc = df_cc[[BhavData.SYMBOL,new_col]]
     
-    result = df2.merge(
+    try:
+        logger.debug("Reading last report.")
+        lastReport =  Report(NSE_LOCAL.PROCESSED_LOCATION + "/" + FileName.ChangeCapture() + FILEFORMAT.CSV).load() # Read last Master file ChangeCapture.csv
+    except FileNotFoundError as e:
+        logger.exception("Last Report ChangeCapture.csv not found")
+        raise FileNotFoundError("Last Report ChangeCapture.csv not found") from e
+
+    ProcessedDataExporter(df_cc, FileName.ChangeCapture()).to_csv() #ChangeCapture.csv
+    
+    result = df_cc.merge(
         lastReport,
-        on="SYMBOL",
+        on=BhavData.SYMBOL,
         how="left"
     )
 
-    DataExporter(result, "ChangeCapture").to_csv()
+    ProcessedDataExporter(result, FileName.ChangeCapture()).to_csv() #ChangeCapture.csv
+    logger.info("Final file merged and exported.")
 
 if __name__ == "__main__":
     # ENV = Env.STAGE

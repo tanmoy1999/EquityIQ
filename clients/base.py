@@ -12,5 +12,4 @@ class BaseHTTPClient:
         return client
 
     def _sleep(self) -> None:
-        print("sleeping... 4s")
-        time.sleep(4)
+        time.sleep(2)
