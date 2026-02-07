@@ -1,0 +1,34 @@
+2026-02-07 17:17:12 | INFO     | __main__ | Running in PROD environment
+2026-02-07 17:17:12 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_07022026.csv
+2026-02-07 17:17:12 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 17:17:38 | INFO     | __main__ | Running in PROD environment
+2026-02-07 17:17:38 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_07022026.csv
+2026-02-07 17:17:38 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 17:17:41 | ERROR    | __main__ | Failed to fetch bhavcopy data from NSE
+Traceback (most recent call last):
+  File "c:/Users/tanmo/Desktop/EquityIQ/main.py", line 44, in main
+    df = conn.get_data()
+  File "c:\Users\tanmo\Desktop\EquityIQ\clients\nse.py", line 22, in get_data
+    response.raise_for_status()
+  File "C:\Users\tanmo\miniconda3\lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_07022026.csv
+2026-02-07 17:18:46 | INFO     | __main__ | Running in PROD environment
+2026-02-07 17:18:46 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_07022026.csv
+2026-02-07 17:18:46 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 17:18:49 | ERROR    | __main__ | Failed to fetch bhavcopy data from NSE
+Traceback (most recent call last):
+  File "c:/Users/tanmo/Desktop/EquityIQ/main.py", line 44, in main
+    df = conn.get_data()
+  File "c:\Users\tanmo\Desktop\EquityIQ\clients\nse.py", line 22, in get_data
+    response.raise_for_status()
+  File "C:\Users\tanmo\miniconda3\lib\site-packages\requests\models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_07022026.csv
+2026-02-07 17:20:12 | INFO     | __main__ | Running in PROD environment
+2026-02-07 17:20:12 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 17:20:12 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 17:20:14 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 17:20:16 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 17:20:16 | DEBUG    | __main__ | Reading last report.
+2026-02-07 17:20:16 | INFO     | __main__ | Final file merged and exported.
