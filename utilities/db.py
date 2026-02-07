@@ -2,6 +2,7 @@ from pymongo import MongoClient, UpdateOne
 import logging
 from core.constants import NSE
 from utilities.format import DateUtils
+from schemas.models import BhavData, DBkey, AUDITCOLS
 
 class Database:
     def __init__(self, uri):
@@ -36,7 +37,7 @@ class Database:
         try:
             bulk_ops = []
             
-            self.collection.create_index("symbol", unique=True)
+            self.collection.create_index(DBkey.SYMBOL_key, unique=True)
             
             for _, row in df.iterrows():
                 updates = {}
@@ -47,11 +48,11 @@ class Database:
                 
                 bulk_ops.append(
                     UpdateOne(
-                        {"symbol": row["SYMBOL"]},
+                        {DBkey.SYMBOL_key: row[BhavData.SYMBOL]},
                         {
                             "$set": updates,
-                            "$setOnInsert": {"symbol": row["SYMBOL"]},
-                            "$currentDate": {"last_updated": True}
+                            "$setOnInsert": {DBkey.SYMBOL_key: row[BhavData.SYMBOL]},
+                            "$currentDate": {AUDITCOLS.LAST_UPDATED: True}
                         },
                         upsert=True
                     )

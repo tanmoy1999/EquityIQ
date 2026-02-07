@@ -77,3 +77,12 @@ requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://nsea
 2026-02-07 21:58:24 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
 2026-02-07 21:58:24 | DEBUG    | __main__ | Reading last report.
 2026-02-07 21:58:24 | INFO     | __main__ | Final file merged and exported.
+2026-02-07 22:14:07 | INFO     | __main__ | Running in PROD environment
+2026-02-07 22:14:07 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 22:14:07 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 22:14:10 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 22:14:12 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 22:14:12 | DEBUG    | __main__ | Reading last report.
+2026-02-07 22:14:12 | INFO     | __main__ | Final file merged and exported.
+2026-02-07 22:14:12 | DEBUG    | __main__ | Exporting to MongoDB.
+2026-02-07 22:14:22 | INFO     | __main__ | Data exported to MongoDB successfully.
