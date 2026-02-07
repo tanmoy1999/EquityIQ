@@ -29,4 +29,10 @@ class BhavData:
 class ChangeCapture:
     SYMBOL = "SYMBOL"
 
+class DBkey:
+    SYMBOL_key = "symbol"
+
+class AUDITCOLS:
+    LAST_UPDATED = "last_updated"
+
     
