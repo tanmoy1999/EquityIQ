@@ -13,7 +13,7 @@ class ProcessedDataExporter:
 
     def to_json(self):
         df = self.df
-        df.to_json(OUTPUT.PROCESSED_LOCATION + "/" + self.filename + FILEFORMAT.JSON)
+        df.to_json(OUTPUT.PROCESSED_LOCATION + "/" + self.filename + FILEFORMAT.JSON, orient="records", indent=2)
 
     def to_parquet(self):
         df = self.df

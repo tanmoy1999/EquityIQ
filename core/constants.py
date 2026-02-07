@@ -8,6 +8,21 @@ class NSE:
     TICKER_PATH = "content/equities"
     TICKER_FILENAME = "EQUITY_L"
     EQUITY = "EQ"
+    NSE = "NSE"
+    BHAVCOPY = "bhavcopy"
+
+class DatabaseConfig:
+    URI = "mongodb+srv://"
+    APP_NAME = "EquityIQ"
+    CLUSTER = "equityiq.lysmhzc.mongodb.net"
+
+    def __init__(self, user: str, password: str):
+        self.user = user
+        self.password = password
+
+    def get_connection_string(self) -> str:
+        return f"{DatabaseConfig.URI}{self.user}:{self.password}@{DatabaseConfig.CLUSTER}/?appName={DatabaseConfig.APP_NAME}"
+
 
 class FILEFORMAT:
     CSV = ".csv"

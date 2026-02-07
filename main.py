@@ -1,5 +1,6 @@
 from utilities.format import DateUtils
-from core.constants import DATEFORMAT, Env, NSE_LOCAL, NSE, FILEFORMAT, OUTPUT
+from utilities.db import Database
+from core.constants import DATEFORMAT, Env, NSE_LOCAL, NSE, FILEFORMAT, OUTPUT, DatabaseConfig
 from clients.nse import NSEClient, Report
 from clients.base import BaseHTTPClient
 from core.calculations import Col
@@ -76,7 +77,12 @@ def main(ENV) -> None:
     )
 
     ProcessedDataExporter(result, FileName.ChangeCapture()).to_csv() #ChangeCapture.csv
+    ProcessedDataExporter(result, FileName.ChangeCapture()).to_json() #ChangeCapture.parquet
+    # result.to_json(OUTPUT.PROCESSED_LOCATION + "/" + FileName.ChangeCapture() + FILEFORMAT.JSON, orient="records",indent = 2, lines=True) #ChangeCapture.json
     logger.info("Final file merged and exported.")
+
+    client = Database(DatabaseConfig.get_connection_string(DatabaseConfig))
+    
 
 if __name__ == "__main__":
     # ENV = Env.STAGE

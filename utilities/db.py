@@ -1,15 +1,43 @@
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-import pandas as pd
+from pymongo import MongoClient
 import logging
-uri = "mongodb+srv://tanmoyworkspace_db_user:Ejevnrm3gxo2XVHe@equityiq.lysmhzc.mongodb.net/?appName=EquityIQ"
+from core.constants import NSE
+# client = MongoClient(uri)
 
-client = MongoClient(uri, server_api=ServerApi('1'))
+# # Access a specific database
+# db = client['NSE']
 
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+# # Access a collection within the database
+# collection = db['bhavcopy']
 
-# tanmoyworkspace_db_user Ejevnrm3gxo2XVHe
+# # Example: Insert a document into the collection
+# document = {"firstname": "John", "lastname": "Doe", "email": "tanny@example.com"}
+# collection.insert_one(document)
+
+class Database:
+    def __init__(self, uri):
+        self.client = MongoClient(uri)
+        self.db = self.client[NSE.NSE]
+        self.collection = self.db[NSE.BHAVCOPY]
+
+    def insert_one(self, document):
+        try:
+            self.collection.insert_one(document)
+            logging.info("Document inserted successfully.")
+        except Exception as e:
+            logging.exception(f"Error inserting document: {e}")
+
+    def insert_many(self, documents):
+        try:
+            self.collection.insert_many(documents)
+            logging.info("Documents inserted successfully.")
+        except Exception as e:
+            logging.exception(f"Error inserting documents: {e}")
+
+    def find_document(self, query):
+        try:
+            result = self.collection.find_one(query)
+            logging.info("Document found successfully.")
+            return result
+        except Exception as e:
+            logging.exception(f"Error finding document: {e}")
+            return None
