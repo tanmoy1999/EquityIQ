@@ -26,8 +26,8 @@ HEADERS = {
 }
 
 def main(ENV) -> None:
-    url = URL(DateUtils.format_date)     #### UNCOMMENT When deploying
-    # url = URL(DATEFORMAT.DEFAULT)
+    # url = URL(DateUtils.format_date)     #### UNCOMMENT When deploying
+    url = URL(DATEFORMAT.DEFAULT)
 
     if ENV == Env.PROD:
         logger.info("Running in PROD environment")
