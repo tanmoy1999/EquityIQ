@@ -1,3 +1,4 @@
+import os
 from utilities.format import DateUtils
 from utilities.db import Database
 from core.constants import DATEFORMAT, Env, NSE_LOCAL, NSE, FILEFORMAT, OUTPUT, DatabaseConfig
@@ -8,8 +9,16 @@ import pandas as pd
 from core.operations import ProcessedDataExporter,BhavDataExporter, URL, FileName
 from schemas.models import Ticker, BhavData
 from utilities.logging import get_logger
+from dotenv import load_dotenv
+from pymongo import MongoClient, UpdateOne
 
 logger = get_logger(__name__)
+load_dotenv(".env")
+
+db_user = os.getenv("DB_USER")
+DB_KEY = os.getenv("DB_KEY")
+
+
 
 HEADERS = {
     "User-Agent": (
@@ -77,11 +86,18 @@ def main(ENV) -> None:
     )
 
     ProcessedDataExporter(result, FileName.ChangeCapture()).to_csv() #ChangeCapture.csv
-    ProcessedDataExporter(result, FileName.ChangeCapture()).to_json() #ChangeCapture.parquet
     # result.to_json(OUTPUT.PROCESSED_LOCATION + "/" + FileName.ChangeCapture() + FILEFORMAT.JSON, orient="records",indent = 2, lines=True) #ChangeCapture.json
     logger.info("Final file merged and exported.")
 
-    client = Database(DatabaseConfig.get_connection_string(DatabaseConfig))
+    try:
+        logger.debug("Exporting to MongoDB.")
+        uri = DatabaseConfig(db_user, DB_KEY).get_connection_string()
+        date_cols = [c for c in df.columns if c.startswith("change_")]
+        Database(uri).bulk_upsert(df, date_cols)
+        logger.info("Data exported to MongoDB successfully.")
+    except Exception as e:
+        logger.exception("Failed to export data to MongoDB")
+        raise RuntimeError("Failed to export data to MongoDB") from e
     
 
 if __name__ == "__main__":

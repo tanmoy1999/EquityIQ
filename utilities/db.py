@@ -1,17 +1,7 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 import logging
 from core.constants import NSE
-# client = MongoClient(uri)
-
-# # Access a specific database
-# db = client['NSE']
-
-# # Access a collection within the database
-# collection = db['bhavcopy']
-
-# # Example: Insert a document into the collection
-# document = {"firstname": "John", "lastname": "Doe", "email": "tanny@example.com"}
-# collection.insert_one(document)
+from utilities.format import DateUtils
 
 class Database:
     def __init__(self, uri):
@@ -41,3 +31,34 @@ class Database:
         except Exception as e:
             logging.exception(f"Error finding document: {e}")
             return None
+
+    def bulk_upsert(self, df, date_cols):
+        try:
+            bulk_ops = []
+            
+            self.collection.create_index("symbol", unique=True)
+            
+            for _, row in df.iterrows():
+                updates = {}
+                
+                for col in date_cols:
+                    date_key = DateUtils.extract_date(col)
+                    updates[f"changes.{date_key}"] = row[col]
+                
+                bulk_ops.append(
+                    UpdateOne(
+                        {"symbol": row["SYMBOL"]},
+                        {
+                            "$set": updates,
+                            "$setOnInsert": {"symbol": row["SYMBOL"]},
+                            "$currentDate": {"last_updated": True}
+                        },
+                        upsert=True
+                    )
+                )
+            
+            if bulk_ops:
+                self.collection.bulk_write(bulk_ops)
+                logging.info("Bulk upsert completed successfully.")
+        except Exception as e:
+            logging.exception(f"Error in bulk upsert: {e}")

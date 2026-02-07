@@ -5,41 +5,16 @@ import pandas as pd
 import logging
 from core.constants import NSE, DatabaseConfig
 from utilities.db import Database
+from utilities.format import DateUtils
 from dotenv import load_dotenv
 from pymongo import MongoClient, UpdateOne
 
 load_dotenv(".env")
-# from pymongo import MongoClient
-
-# client = MongoClient(uri)
-
-# # Access a specific database
-# db = client['NSE']
-
-# # Access a collection within the database
-# collection = db['bhavcopy']
-
-# # Example: Insert a document into the collection
-# document = {"firstname": "John", "lastname": "Doe", "email": "tanny@example.com"}
-# collection.insert_one(document)
-
-# # result = collection.find_one({"email": "johndoe1@example.com"})
-# # print(result)
 
 df = pd.read_csv(r"storage\output\processed\ChangeCapture.csv")
 
 db_user = os.getenv("DB_USER")
 DB_KEY = os.getenv("DB_KEY")
-
-# print(db_user, DB_KEY)
-# uri = DatabaseConfig(db_user, DB_KEY).get_connection_string()
-# print(uri)
-# client = Database(uri)
-# records = df.to_dict(orient="records")
-# client.symbol_changes.deleteMany({})
-# client.insert_many(records)
-
-# print(df.to_dict(orient="records"))
 
 
 # This will go to utilities/db.py and will be used in main.py to insert the final result into MongoDB
@@ -63,7 +38,8 @@ for _, row in df.iterrows():
     updates = {}
 
     for col in date_cols:
-        date_key = extract_date(col)
+        # date_key = extract_date(col)
+        date_key = DateUtils.extract_date(col)
         updates[f"changes.{date_key}"] = row[col]
 
     bulk_ops.append(

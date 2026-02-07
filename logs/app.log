@@ -42,3 +42,38 @@ requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://nsea
 2026-02-07 18:35:48 | INFO     | __main__ | Running in PROD environment
 2026-02-07 18:35:48 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
 2026-02-07 18:35:48 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 21:53:31 | INFO     | __main__ | Running in PROD environment
+2026-02-07 21:53:31 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 21:53:31 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 21:53:34 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 21:53:36 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 21:53:36 | DEBUG    | __main__ | Reading last report.
+2026-02-07 21:53:36 | INFO     | __main__ | Final file merged and exported.
+2026-02-07 21:55:04 | INFO     | __main__ | Running in PROD environment
+2026-02-07 21:55:04 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 21:55:04 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 21:55:06 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 21:55:08 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 21:55:08 | DEBUG    | __main__ | Reading last report.
+2026-02-07 21:55:08 | INFO     | __main__ | Final file merged and exported.
+2026-02-07 21:56:36 | INFO     | __main__ | Running in PROD environment
+2026-02-07 21:56:36 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 21:56:36 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 21:56:38 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 21:56:41 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 21:56:41 | DEBUG    | __main__ | Reading last report.
+2026-02-07 21:56:41 | INFO     | __main__ | Final file merged and exported.
+2026-02-07 21:57:22 | INFO     | __main__ | Running in PROD environment
+2026-02-07 21:57:22 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 21:57:22 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 21:57:24 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 21:57:26 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 21:57:26 | DEBUG    | __main__ | Reading last report.
+2026-02-07 21:57:26 | INFO     | __main__ | Final file merged and exported.
+2026-02-07 21:58:20 | INFO     | __main__ | Running in PROD environment
+2026-02-07 21:58:20 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23012026.csv
+2026-02-07 21:58:20 | DEBUG    | __main__ | URL: https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv
+2026-02-07 21:58:22 | DEBUG    | __main__ | Fetched & Exported bhavcopy rows: 3102
+2026-02-07 21:58:24 | DEBUG    | __main__ | Fetched & Exported Ticker sheet: 2234
+2026-02-07 21:58:24 | DEBUG    | __main__ | Reading last report.
+2026-02-07 21:58:24 | INFO     | __main__ | Final file merged and exported.
